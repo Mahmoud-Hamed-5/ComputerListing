@@ -21,6 +21,25 @@ namespace ComputerListing.Data
         {
             base.OnModelCreating(builder);
 
+            builder.Entity<Computer>().HasData(
+                new Computer
+                {
+                    Id = 1,
+                    Manufacturer = "MSI",
+                    Model = "Crosshair 15",
+                    Proccessor = "i7-11800",
+                    RAM = 16
+                }
+                );
+
+            builder.Entity<Accessory>().HasData(
+                new Accessory
+                {
+                    Id = 1,
+                    Name = "Gaming Mouse",
+                    ComputerId = 1
+                }
+                );
         }
 
 

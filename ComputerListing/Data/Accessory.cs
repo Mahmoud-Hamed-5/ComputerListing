@@ -10,7 +10,7 @@ namespace ComputerListing.Data
     {
         public int Id { set; get; }
 
-        public List<string> AccessoriesList { set; get; }
+        public string Name { set; get; }
 
         [ForeignKey(nameof(Computer))]
         public int ComputerId { set; get; }

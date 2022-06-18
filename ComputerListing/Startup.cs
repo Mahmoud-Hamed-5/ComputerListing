@@ -1,3 +1,4 @@
+using ComputerListing.Configurations;
 using ComputerListing.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,9 +33,7 @@ namespace ComputerListing
             services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("sqlConnection"))
             );
-
-            services.AddControllers();
-
+         
             services.AddCors(options =>
                 options.AddPolicy("AllowAll", builder => 
                 builder.AllowAnyOrigin()
@@ -42,10 +41,14 @@ namespace ComputerListing
                 .AllowAnyHeader())
             );
 
+            services.AddAutoMapper(typeof(MapperInitilizer));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ComputerListing", Version = "v1" });
             });
+
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
