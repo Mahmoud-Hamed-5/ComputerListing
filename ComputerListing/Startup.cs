@@ -1,9 +1,11 @@
+using ComputerListing.AuthServices;
 using ComputerListing.Configurations;
 using ComputerListing.Data;
 using ComputerListing.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -34,21 +36,30 @@ namespace ComputerListing
             services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("sqlConnection"))
             );
-         
-            services.AddCors(options =>
-                options.AddPolicy("AllowAll", builder => 
-                builder.AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader())
-            );
+
+            //services.AddAuthorization();
+            services.AddAuthentication();
+            services.ConfigureIdentity();
+            services.ConfigureJWT(Configuration);
+
+            services.AddScoped<IAuthManager, AuthManager>();
+
+            //services.AddCors(options =>
+            //    options.AddPolicy("AllowAll", builder => 
+            //    builder.AllowAnyOrigin()
+            //    .AllowAnyMethod()
+            //    .AllowAnyHeader())
+            //);
+            services.ConfigureCORS();
+
+            //services.AddSwaggerGen(c =>
+            //{
+            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "ComputerListing", Version = "v1" });
+            //});
+            services.ConfigureSwagger();
 
             services.AddAutoMapper(typeof(MapperInitilizer));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
-
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ComputerListing", Version = "v1" });
-            });
 
             services.AddControllers().AddNewtonsoftJson(options => 
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -71,6 +82,7 @@ namespace ComputerListing
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

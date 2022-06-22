@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using ComputerListing.Models;
 using ComputerListing.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ComputerListing.Controllers
@@ -46,7 +46,7 @@ namespace ComputerListing.Controllers
         }
 
 
-
+        [Authorize]
         [ProducesResponseType(statusCode: StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(statusCode: StatusCodes.Status200OK)]
         [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]

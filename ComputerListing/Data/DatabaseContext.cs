@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using ComputerListing.Configurations.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -20,26 +21,12 @@ namespace ComputerListing.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+         
+            builder.ApplyConfiguration(new ComputerConfiguration());
 
-            builder.Entity<Computer>().HasData(
-                new Computer
-                {
-                    Id = 1,
-                    Manufacturer = "MSI",
-                    Model = "Crosshair 15",
-                    Proccessor = "i7-11800",
-                    RAM = 16
-                }
-                );
+            builder.ApplyConfiguration(new AccessoryConfiguration());
 
-            builder.Entity<Accessory>().HasData(
-                new Accessory
-                {
-                    Id = 1,
-                    Name = "Gaming Mouse",
-                    ComputerId = 1
-                }
-                );
+            builder.ApplyConfiguration(new RoleConfiguration());
         }
 
 
