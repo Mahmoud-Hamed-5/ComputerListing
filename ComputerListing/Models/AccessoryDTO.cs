@@ -17,6 +17,11 @@ namespace ComputerListing.Models
         public int ComputerId { set; get; }   
     }
 
+    public class UpdateAccessoryDTO : CreateAccessoryDTO
+    {
+
+    }
+
     public class AccessoryDTO : CreateAccessoryDTO
     {
         public int Id { set; get; }

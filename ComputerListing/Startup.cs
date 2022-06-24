@@ -37,7 +37,6 @@ namespace ComputerListing
                 options.UseSqlServer(Configuration.GetConnectionString("sqlConnection"))
             );
 
-            //services.AddAuthorization();
             services.AddAuthentication();
             services.ConfigureIdentity();
             services.ConfigureJWT(Configuration);

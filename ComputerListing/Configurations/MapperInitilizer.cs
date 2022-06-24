@@ -14,9 +14,11 @@ namespace ComputerListing.Configurations
         {
             CreateMap<Computer, ComputerDTO>().ReverseMap();
             CreateMap<Computer, CreateComputerDTO>().ReverseMap();
+            CreateMap<Computer, UpdateComputerDTO>().ReverseMap();
 
             CreateMap<Accessory, AccessoryDTO>().ReverseMap();
             CreateMap<Accessory, CreateAccessoryDTO>().ReverseMap();
+            CreateMap<Accessory, UpdateAccessoryDTO>().ReverseMap();
 
             CreateMap<ApiUser, UserDTO>().ReverseMap();
         }
